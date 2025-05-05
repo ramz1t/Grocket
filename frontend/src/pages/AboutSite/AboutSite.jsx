@@ -18,7 +18,7 @@ const AboutSite = () => {
                     </h1>
                     <p className="pl-1.5 font-bold">{t('about_text')}</p>
                 </div>
-                <img src={isDark ? './dark-mock.png' : './light-mock.png'} />
+                <img src={isDark ? './grocket/dark-mock.png' : './grocket/light-mock.png'} />
             </section>
         </>
     )

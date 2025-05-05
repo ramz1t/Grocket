@@ -17,7 +17,7 @@ export const useProducts = (queryParams) => {
         ['products', queryParamsObject],
         () =>
             api
-                .get(`/api/v1/products`, {
+                .get(`/api/v1/products/`, {
                     params: Object.assign({}, queryParamsObject, { limit }),
                 })
                 .then((res) => res.data),
@@ -28,7 +28,7 @@ export const useProducts = (queryParams) => {
 export const useProduct = (productId) => {
     const api = useAxios()
     return useQuery(['product', productId], () =>
-        api.get(`/api/v1/products/${productId}`).then((res) => res.data)
+        api.get(`/api/v1/products/${productId}/`).then((res) => res.data)
     )
 }
 
@@ -68,7 +68,7 @@ export const useUserProducts = (userId, queryParams) => {
     const api = useAxios()
     return useQuery(['products', userId, queryParams], () =>
         api
-            .get(`/api/v1/users/${userId}/products`, {
+            .get(`/api/v1/users/${userId}/products/`, {
                 params: { ...queryParams, limit: limit },
             })
             .then((res) => res.data)
@@ -79,7 +79,7 @@ export const useCategories = (queryParams) => {
     const api = useAxios()
     return useQuery(['categories', queryParams], () =>
         api
-            .get(`/api/v1/categories`, { params: { ...queryParams } })
+            .get(`/api/v1/categories/`, { params: { ...queryParams } })
             .then((res) => res.data)
     )
 }
@@ -88,7 +88,7 @@ export const useProfile = (userId) => {
     if (!userId) return {}
     const api = useAxios()
     return useQuery(['users', userId], () =>
-        api.get(`/api/v1/users/${userId}`).then((res) => res.data)
+        api.get(`/api/v1/users/${userId}/`).then((res) => res.data)
     )
 }
 
@@ -174,7 +174,7 @@ export const useUpdatePassword = () => {
 export const useDeleteProfile = () => {
     const api = useAxios()
     const { logoutUser } = useContext(AuthContext)
-    return useMutation((data) => api.delete('/api/v1/users/me', data), {
+    return useMutation((data) => api.delete('/api/v1/users/me/', data), {
         onSuccess: (res) => {
             logoutUser()
             notification(res?.data?.message)
@@ -204,7 +204,7 @@ export const useFavouriteProduct = () => {
 export const usePromotions = () => {
     const api = useAxios()
     return useQuery(['promotions'], () =>
-        api.get('/api/v1/promotions').then((res) => res.data)
+        api.get('/api/v1/promotions/').then((res) => res.data)
     )
 }
 
@@ -228,7 +228,7 @@ export const useUserComments = (userId, page) => {
         ['comments', userId, page],
         () =>
             api
-                .get(`/api/v1/users/${userId}/comments`, { params: { page } })
+                .get(`/api/v1/users/${userId}/comments/`, { params: { page } })
                 .then((res) => res.data),
         { keepPreviousData: true }
     )
@@ -237,7 +237,7 @@ export const useUserComments = (userId, page) => {
 export const useCommentStatuses = () => {
     const api = useAxios()
     return useQuery(['comment_statuses'], () =>
-        api.get('/api/v1/comments/statuses').then((res) => res.data)
+        api.get('/api/v1/comments/statuses/').then((res) => res.data)
     )
 }
 
@@ -306,7 +306,7 @@ export const useDeleteCommentReply = () => {
 export const useExchangeRates = () => {
     const api = useAxios()
     return useQuery(['exchangeRages'], () =>
-        api.get('/api/v1/exchange').then((res) => res.data)
+        api.get('/api/v1/exchange/').then((res) => res.data)
     )
 }
 
@@ -368,8 +368,8 @@ export const useDeleteChatMutation = () => {
 export const useChatMessages = (chatId) => {
     const api = useAxios()
     return useInfiniteQuery({
-        queryKey: ['messenger', 'chats', chatId],
-        queryFn: ({ pageParam = 1 }) => api.get(`/api/v1/messenger/chats/${chatId}/messages?limit=30&page=${pageParam}`),
+        queryKey: ['messenger',  'chats', chatId],
+        queryFn: ({ pageParam = 1 }) => api.get(`/api/v1/messenger/chats/${chatId}/messages/`, { params: { pageParam, limit: 30 }}),
         getNextPageParam: (lastPage, allPages) => {
             if (lastPage.data?.links?.next === null) {
                 return undefined

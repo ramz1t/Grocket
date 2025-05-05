@@ -25,7 +25,7 @@ const queryClient = new QueryClient({
 })
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <BrowserRouter>
+    <BrowserRouter basename="/grocket/">
         <QueryClientProvider client={queryClient}>
             <AuthProvider>
                 <MessengerProvider>

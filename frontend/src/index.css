@@ -8,17 +8,17 @@
 
 @font-face {
     font-family: 'grocket';
-    src: url('/fonts/NunitoSans-Regular.ttf');
+    src: url('/grocket/fonts/NunitoSans-Regular.ttf');
 }
 
 @font-face {
     font-family: 'grocketbold';
-    src: url('/fonts/NunitoSans-Bold.ttf');
+    src: url('/grocket/fonts/NunitoSans-Bold.ttf');
 }
 
 @font-face {
     font-family: 'grocketbolditalic';
-    src: url('/fonts/NunitoSans-ExtraBoldItalic.ttf');
+    src: url('/grocket/fonts/NunitoSans-ExtraBoldItalic.ttf');
 }
 
 .chat-container {

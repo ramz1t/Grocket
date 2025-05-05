@@ -61,10 +61,10 @@ ROOT_URLCONF = "grocket.urls"
 
 
 # <--- Настройка путей --->
-DATA_URL = "/data/"
+DATA_URL = "/grocket/data/"
 DATA_ROOT = os.path.join(BASE_DIR, "data")
 
-STATIC_URL = "/static/"
+STATIC_URL = "/grocket/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 STATICFILES_DIRS = [
@@ -72,7 +72,7 @@ STATICFILES_DIRS = [
 ]
 TEMPLATES_DIR = os.path.join(BASE_DIR, "core", "templates")
 
-MEDIA_URL = "/media/"
+MEDIA_URL = "/grocket/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 CSV_URL = "data/csv"
