@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext } from 'react'
+import {createContext, useState, useEffect, useContext, useMemo} from 'react'
 import { redirect, useNavigate } from 'react-router-dom'
 import jwt_decode from 'jwt-decode'
 import { alertErr, getCookie, notification } from '../utils'
@@ -8,6 +8,7 @@ import localizations from '../assets/json/localization.json'
 import api from '../api/api'
 import { useTranslation } from 'react-i18next'
 import { capitalizeName } from '../utils'
+import useLocalStorage from "../hooks/useLocalStorage.js";
 
 const AuthContext = createContext()
 
@@ -15,20 +16,20 @@ export default AuthContext
 
 export const AuthProvider = ({ children }) => {
     const { i18n } = useTranslation()
+    const [authTokens, setAuthTokens, clearLocalStorage] = useLocalStorage('authTokens', null)
     const navigate = useNavigate()
     const queryClient = useQueryClient()
 
-    const [authTokens, setAuthTokens] = useState(() =>
-        localStorage.getItem('authTokens')
-            ? JSON.parse(localStorage.getItem('authTokens'))
-            : null
-    )
-
-    const [user, setUser] = useState(() =>
-        localStorage.getItem('authTokens')
-            ? jwt_decode(localStorage.getItem('authTokens'))
-            : null
-    )
+    const decodedUser = useMemo(() => {
+        try {
+            return authTokens
+                ? jwt_decode(authTokens.access)
+                : null
+        } catch {
+            return null
+        }
+    }, [authTokens])
+    const [user, setUser] = useState(decodedUser)
 
     const loginUser = async ({ email, password, redirectFrom }, setError) => {
         api.post(
@@ -46,7 +47,6 @@ export const AuthProvider = ({ children }) => {
         )
             .then((res) => {
                 setAuthTokens(res.data)
-                localStorage.setItem('authTokens', JSON.stringify(res.data))
                 navigate(redirectFrom)
             })
             .catch((err) => {
@@ -106,12 +106,8 @@ export const AuthProvider = ({ children }) => {
     const logoutUser = () => {
         setAuthTokens(null)
         setUser(null)
-        localStorage.removeItem('lookHistory')
-        localStorage.removeItem('languageSelected')
         queryClient.clear()
-        localStorage.removeItem('authTokens')
-        localStorage.removeItem('accentColor')
-        localStorage.removeItem('searchHistory')
+        clearLocalStorage()
         navigate('/login')
     }
 

@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react'
+import {useState, useEffect, useCallback} from 'react'
+
+const APP_STORAGE_KEY = import.meta.env.VITE_APP_NAME
 
 const getSavedValue = (key, initialValue) => {
     const savedValue = JSON.parse(localStorage.getItem(key))
@@ -10,15 +12,25 @@ const getSavedValue = (key, initialValue) => {
 }
 
 const useLocalStorage = (key, initialValue) => {
+    const storageKey = `${APP_STORAGE_KEY}_${key}`
     const [value, setValue] = useState(() => {
-        return getSavedValue(key, initialValue)
+        return getSavedValue(storageKey, initialValue)
     })
 
+    const clear = useCallback(() => {
+        for (let i = localStorage.length - 1; i >= 0; i--) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith(APP_STORAGE_KEY)) {
+                localStorage.removeItem(key);
+            }
+        }
+    }, [APP_STORAGE_KEY])
+
     useEffect(() => {
-        localStorage.setItem(key, JSON.stringify(value))
+        localStorage.setItem(storageKey, JSON.stringify(value))
     }, [value])
 
-    return [value, setValue]
+    return [value, setValue, clear]
 }
 
 export default useLocalStorage

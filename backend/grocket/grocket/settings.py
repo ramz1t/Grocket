@@ -16,6 +16,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = ["http://opns-st-1.aboard.ru:34080", "http://timur.aboard.ru:34080", "https://timur.aboard.ru"]
 
+FORCE_SCRIPT_NAME = '/grocket/'
 
 INSTALLED_APPS = [
     "core",

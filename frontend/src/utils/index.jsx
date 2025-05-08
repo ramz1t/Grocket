@@ -81,9 +81,11 @@ export const saveImage = (
 }
 
 export const getLastRoute = () => {
-    const currentPath = window.location.pathname
-    const lastRoute = currentPath.substring(0, currentPath.lastIndexOf('/'))
-    return lastRoute
+    const parts = currentPath.split('/').filter(part => part !== "");
+    if (parts.length < 2) {
+        return "";
+    }
+    return "/" + parts.slice(1, parts.length - 1).join('/');
 }
 
 export const capitalizeName = (str) => {

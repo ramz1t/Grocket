@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next'
 import ThemeContext from '../../contexts/ThemeContext'
 import { useContext } from 'react'
+import darkImage from '../../assets/images/dark-mock.png'
+import lightImage from '../../assets/images/light-mock.png'
 
 const AboutSite = () => {
     const { isDark } = useContext(ThemeContext)
@@ -16,9 +18,9 @@ const AboutSite = () => {
                     <h1 className="font-bolditalic text-6xl text-accent-orange md:text-8xl">
                         Grocket
                     </h1>
-                    <p className="pl-1.5 font-bold">{t('about_text')}</p>
+                    <p className="pl-1.5  font-bold">{t('about_text')}</p>
                 </div>
-                <img src={isDark ? './grocket/dark-mock.png' : './grocket/light-mock.png'} />
+                <img src={isDark ? darkImage : lightImage} />
             </section>
         </>
     )
