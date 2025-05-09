@@ -10,7 +10,9 @@ services:
       - ./.env
 
   web:
-    build: ../backend/grocket/
+    build: 
+      context: ../backend/grocket/
+      dockerfile: Dockerfile
     restart: always
     volumes:
       - data_value:/app/data/
@@ -25,6 +27,7 @@ services:
   frontend:
     build:
       context: ../frontend
+      dockerfile: Dockerfile
     restart: always
     volumes:
       - react_build:/react/dist
