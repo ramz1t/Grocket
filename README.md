@@ -8,11 +8,11 @@
   
 <!-- Badges -->
 <p>
-  <a href="https://github.com/alexzawadsky/Grocket/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/alexzawadsky/Grocket" alt="contributors" />
+  <a href="https://github.com/ramz1t/Grocket/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/ramz1t/Grocket" alt="contributors" />
   </a>
-  <a href="https://github.com/alexzawadsky/Grocket/commits/master">
-    <img src="https://img.shields.io/github/last-commit/alexzawadsky/Grocket" alt="last update" />
+  <a href="https://github.com/ramz1t/Grocket/commits/master">
+    <img src="https://img.shields.io/github/last-commit/ramz1t/Grocket" alt="last update" />
   </a>
 </p>
 
